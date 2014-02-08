@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Mission Control Terminal
+Comment=Track your Pi using GPS
+Exec=x-terminal-emulator -t "Mission Control" -e /opt/missioncontrol/missioncontrol
+Type=Application
+Categories=Application;Network;
+Icon=/opt/missioncontrol/resources/missioncontrol.png
+StartupNotify=true
+

@@ -1,0 +1,44 @@
+# Universal Settings Format v1.0
+# 2014-02-08 9am
+$encoding "ASCII"
+
+# Version Caption
+$firmware_name "Mission Control 1.4"
+$firmware_author "Andrew Hazelden"
+
+# Serial Port Name
+$port_name "/dev/ttyACM0"
+
+# GPS Baud Rate
+@baud_rate 115200
+
+# NMEA GPS Lines Read Per Graphics Frame Update 
+# (integer value 2=10 Hz FPS graohics rate,  10=1 Hz FPS graphics rate)
+@read_lines_count 2
+
+# Navputer Screen Font
+$font_name "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
+
+# Navputer Font Size in Points (default = 12)
+@font_size 13
+
+# Anti-Aliased Gauge Rotations 1=AA ON, 0=AA OFF
+@gauge_aa_mode 1
+
+# Graphics Frame Rate Limiter (integer value 1=1Hz, 10=10Hz, 30=30 Hz)
+@max_fps 10
+
+# NMEA GPS Tracklog Filepath "tracklog.gps"
+$gps_tracklog_filepath "/opt/missioncontrol/gps_logs/tracklog.gps"
+
+# KML Tracklog Filepath  "tracklog.kml"
+$kml_tracklog_filepath "/opt/missioncontrol/gps_logs/tracklog.kml"
+
+# BMP Formatted Snapshot Filepath "dashboard.bmp"
+$bmp_snapshot_filepath "/opt/missioncontrol/gps_logs/dashboard.bmp"
+
+# KML Log Waypoint Limit
+@kml_log_limit 100000
+
+#end
+

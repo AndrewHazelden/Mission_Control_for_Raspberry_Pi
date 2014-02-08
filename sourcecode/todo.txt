@@ -1,0 +1,12 @@
+To Do
+
+Write the current ip address to the /opt/missioncontrol/gps_logs/index.html file
+Note: The program expects a default IP address of 192.168.1.137 and writes this to the index.html page.
+
+window layout - tab switches between horizontal 1x6 gauge or vertical layout 2x3 gauge mode
+
+date stamped .gps logfile
+
+replay logfile code
+
+

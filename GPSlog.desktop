@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=GPS Tracklog
+Comment=View the GPS Log File
+Exec=x-terminal-emulator -t "Mission Control" -e nano /opt/missioncontrol/gps_logs/tracklog.gps
+Type=Application
+Categories=Application;Network;
+MimeType=text/gps;
+Icon=/opt/missioncontrol/resources/gpslog-icon.png
+StartupNotify=true
+

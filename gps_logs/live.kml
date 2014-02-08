@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>live.kml</name>
+	<open>1</open>
+	<NetworkLink>
+		<name>Auto Refresh KMZ</name>
+		<open>1</open>
+		<Link>
+			<href>http://192.168.1.137/mission_control.kmz?</href>
+			<refreshMode>onInterval</refreshMode>
+			<refreshInterval>5</refreshInterval>
+			<viewRefreshMode>onStop</viewRefreshMode>
+			<viewRefreshTime>5</viewRefreshTime>
+		</Link>
+		<viewRefreshMode>onStop</viewRefreshMode><viewRefreshTime>10</viewRefreshTime>
+	</NetworkLink>
+</Document>
+</kml>

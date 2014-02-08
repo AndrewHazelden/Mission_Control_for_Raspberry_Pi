@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>readme</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: 29d1c5bc36da364ad5aa86946d420b7bbc54a253 */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>Mission Control for Raspberry Pi</h1>
+<p>Version 1.4.1 - Released 2014-02-08<br />
+Created by Andrew Hazelden <br />
+email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x65;&#x77;&#x40;&#97;&#x6e;d&#114;&#x65;&#x77;&#104;&#x61;&#122;&#101;&#x6c;&#x64;&#x65;&#110;&#x2e;&#99;&#x6f;&#109;">&#x61;&#110;&#x64;&#114;&#101;w&#64;a&#110;&#100;&#114;&#101;&#119;&#x68;&#x61;zel&#100;&#x65;&#x6e;&#46;&#99;&#111;&#109;</a>  blog: <a href="http://andrewhazelden.com">http://andrewhazelden.com</a></p>
+<p><img src="screenshots/dashboard.png" alt="The Mission Control Dashbpoard Updates in Real-time" /></p>
+<p>Mission Control is a ground station program that allows you to plot the GPS based latitude, longitude, and altitude of your Raspberry Pi. The program has a graphical dashboard, and supports sharing the GPS position data via the internet using a Google Earth KMZ file. </p>
+<p>The live data for Mission Control is provided by a <a href="http://www.mikroe.com/click/gps/" title="GPS Click">MikroElektronika GPS Click board</a> that is connected to the <a href="http://www.raspberrypi.org/faqs" title="Raspberry Pi">Raspberry Pi</a> via a USB connection on <strong>/dev/ttyACM0</strong>.</p>
+<h2>Screenshots</h2>
+<p><img src="screenshots/mission_control_raspbian.png" alt="The Live Dashboard View" />  </p>
+<p>You can track your position in real-time using Mission Control's SDL based dashboard display.</p>
+<p><img src="screenshots/firefox.png" alt="Firefox Google Earth WebView" />  </p>
+<p>If you have the Google Earth WebView plugin installed you can track the Raspberry Pi in a remote web browser.</p>
+<p><img src="screenshots/google-earth.png" alt="Google Earth Tracking" />  </p>
+<p>Mission Control also provides a KMZ export file that can be used in Google Earth. The KMZ file has a snapshot of the graphics dashboard and a waypoint log of the GPS Click's trail. The KMZ export is updated every 10 seconds.</p>
+<h2>Installation</h2>
+<p><img src="screenshots/program_folder.png" alt="Mission Control Folder" />  </p>
+<p>Once you unpack the Mission Control archive  you can install the software by running:  </p>
+<pre><code>sudo sh ./install.sh  
+</code></pre>
+
+<p>This will copy the Mission Control software to the /opt/missioncontrol/ folder. The installer adds the SDL libraries and Apache using apt-get. This installer package is designed to be used with Raspbian.</p>
+<p>The Apache web sharing folder is located at:</p>
+<pre><code>/var/www/  
+</code></pre>
+
+<p>For this demo the raspberry pi should have the IP address set to <strong>192.168.1.137</strong> If you want to use a different IP address you need to update address stored in the HTML file:  </p>
+<pre><code>/var/www/index.html  
+</code></pre>
+
+<p>You also need to update the Raspberry IP address stored in the kml file:</p>
+<pre><code>/var/www/link.kml
+</code></pre>
+
+<p>A MissionControl.desktop shortcut is placed in the /home/pi/Desktop folder. The desktop item makes it easy to run Mission Control. </p>
+<p>The Mission Control program will launch and connect to the GPS Click via the /dev/ttyACM0 serial port connection at 115200.</p>
+<p>The preferences for the Mission Control program are stored in a plain text preference file:  </p>
+<pre><code>/opt/missioncontrol/gps_prefs.usf  
+</code></pre>
+
+<p>You can change the serial port device, and the baud rate in the <strong>gps_prefs.usf</strong> file.</p>
+<h1>Starting Mission Control</h1>
+<p><strong>Step 1.</strong> Connect your <a href="http://www.mikroe.com/click/gps/" title="GPS Click">MikroElektronika GPS Click board</a> to the Raspberry Pi USB port.</p>
+<p><strong>Step 2.</strong> Double click on the &quot;Mission Control&quot; icon on your PI's desktop to start the program.</p>
+<p><img src="screenshots/desktop_link.png" alt="Double Click to start Mission Control" />  </p>
+<p>If you are using the Raspbian LXDE window manager, you can also start Mission Control with the <strong>Internet &gt; Mission Control</strong> menu item. You can start Mission Control with the debugging info visible by running the <strong>Internet Menu &gt; Mission Control Terminal</strong> menu item.</p>
+<p><img src="screenshots/menu-items.png" alt="You can start Mission Control using the LXDE Menus" />  </p>
+<p>The raw NMEA GPS log file can be viewed with the <strong>Internet Menu &gt; GPS Tracklog</strong> menu item. This command opens the /opt/missioncontrol/gps_log/tracklog.gps file in the nano text editor.</p>
+<p>Mission Control can be started from the command line by typing the following command in the LXterminal:   </p>
+<pre><code>/opt/missioncontrol/missioncontrol  
+</code></pre>
+
+<p><strong>Step 3.</strong> At this point the Raspberry Pi system should show the live Mission Control gauges. </p>
+<p>You can now start your web browser on your desktop / laptop / mobile system and track the Raspberry PI using the Mission Control web interface. (You need to have Google Earth installed on your desktop to access the Mission Control webgui. )</p>
+<p>Open your desktop system's web browser and access the Raspberry Pi's internet address:    </p>
+<pre><code>http://192.168.1.137
+</code></pre>
+
+<p>If you want to view the Mission Control KMZ file directly in Google Earth you can download the current file using the URL:</p>
+<pre><code>http://192.168.1.137/mission_control.kmz
+</code></pre>
+
+<p>A live network Google Earth KMZ file is accessible at:</p>
+<pre><code>http://192.168.1.137/link.kmz
+</code></pre>
+
+<p>The link.kmz file is neat because it refreshes Google Earth regularly and downloads the latest Mission Control data.</p>
+<p>A plain text NMEA GPS tracklog is saved on the Raspberry Pi at:  </p>
+<pre><code>/opt/missioncontrol/gps_logs/tracklog.gps
+</code></pre>
+
+<p>This logfile is overwritten every time the Mission Control program is launched.</p>
+<h1>Removing Mission Control</h1>
+<p>If you want to remove Mission Control from your system you can run the following shell command:</p>
+<pre><code>sudo sh /opt/missioncontrol/remove.sh
+</code></pre>
+
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

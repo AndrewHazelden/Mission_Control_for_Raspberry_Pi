@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Mission Control</title>
+  <script src="//www.google.com/jsapi?key=ABQIAAAANJEwY7d221wlvi7qJMyVphRnKlOdeXfcXljK74vkacpIuaGaoBRaJquCfkoMA1L6QpPkPGYm5BGWyA"></script>
+  <script>
+    google.load('earth', '1');
+
+    var ge = null;
+
+    function init() {
+    google.earth.createInstance('map3d', initCallback, failureCallback);
+    }
+
+    function initCallback(pluginInstance) {
+    ge = pluginInstance;
+    ge.getWindow().setVisibility(true);
+
+
+    //disable terrain layer
+    ge.getLayerRoot().enableLayerById(ge.LAYER_TERRAIN, false);
+
+    //show the roads and borders layers
+    ge.getLayerRoot().enableLayerById(ge.LAYER_BORDERS, true);
+    ge.getLayerRoot().enableLayerById(ge.LAYER_ROADS, true);
+
+    //show navigation controls
+    ge.getNavigationControl().setVisibility(ge.VISIBILITY_SHOW);
+
+
+    var link = ge.createLink('');
+    link.setHref('http://192.168.1.137/live.kml');
+    //link.setHref('http://192.168.1.137/mission_control.kmz');
+
+    var networkLink = ge.createNetworkLink('');
+    networkLink.setLink(link);
+    //networkLink.setFlyToView(true);
+
+    ge.getFeatures().appendChild(networkLink);
+
+    //setTimeout('setPlaybackSpeed()', 3000)
+
+    }
+
+    function failureCallback(errorCode) {
+    }
+
+
+    function setPlaybackSpeed() {
+
+    // Create a new LookAt
+    var lookAt = ge.createLookAt('');
+
+    // Set the position values
+    //lookAt.setLatitude(45.1);
+    //lookAt.setLongitude(-63.3);
+    //lookAt.setRange(451000); //default is 0.0
+
+    // Update the view in Google Earth
+    //ge.getView().setAbstractView(lookAt);
+
+    //Set timeslider playback rate to slower playback
+    //speedy_rate = 1; //1 'virtual' second for each 'real' second 
+    //speedy_rate = 60*60;  //1 virtual hours for each real second
+
+    //ge.getTime().setRate(speedy_rate); 
+    //ge.getTime().setRate(0); //stop the virtual clock
+
+    }
+  </script>
+
+  <style type="text/css"> 
+  <!--
+
+  html, body {
+    background: #555555;
+    COLOR: #F7C211;
+    font-family: Arial;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2{
+    background: #373737;
+    COLOR: #F7C211;
+    padding: 10px;
+    padding-left: 20px;
+    margin-top: 0px;
+  }
+
+  h1 a {
+    COLOR: #000011;
+  }
+
+  a {
+    COLOR: #C59B11;
+  }
+
+  p {
+    COLOR: #F7C211;
+  }
+
+  p a{
+    COLOR: #C7A211;
+    width: 960px;
+  }
+  -->
+  </style>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+  <body onload="init();">
+    <h1>Mission Control on Raspberry Pi</h1>
+    <div id="text_container" style="width: 800px;">
+      <p>The Mission Control utility tracks your Raspberry Pi using GPS. The program has a live dashboard and exports a Google Earth KMZ file every ten seconds. The location data is provided by a <a href="http://www.mikroe.com/click/gps/"> MikroElektronika GPS Click board</a>.</p>
+
+      <p>This example uses the Google Earth browser plugin. You can download the current <a href="mission_control.kmz">mission_control.kmz</a> file or the network link file <a href="live.kml">live.kml</a> for viewing in the desktop version of Google Earth.</p>
+    </div
+
+    <div id="map3d_container" style="width: 800px; height: 451px">
+      <div id="map3d" style="width: 800px; height: 451px"></div>
+    </div>
+
+    <H2>Mission Control was created by <a href="http://www.andrewhazelden.com">Andrew Hazelden</a> &copy; 2014.</h2>
+  </body>
+</html>
