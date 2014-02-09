@@ -9,6 +9,18 @@ $firmware_author "Andrew Hazelden"
 # Serial Port Name
 $port_name "/dev/ttyACM0"
 
+# Alternate tty serial devices are:
+# /dev/tty1
+# /dev/ttyAMA0
+# 
+# Using ttyAMA0 requries the serial console to be disconnected. 
+# 
+# To do this you need to edit the /boot/cmdline.txt file and remove the elements: console=ttyAMA0,115200 kgdboc=ttyAMA0,115200
+# 
+# You also need to edit the /etc/inittab file and comment out the last line by adding a # number sign to the beginning 
+# so it reads: #T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100
+
+
 # GPS Baud Rate
 @baud_rate 115200
 
@@ -27,6 +39,9 @@ $font_name "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
 
 # Graphics Frame Rate Limiter (integer value 1=1Hz, 10=10Hz, 30=30 Hz)
 @max_fps 10
+
+# KML and dashboard snapshot save interval in seconds
+@kml_save_interval 10
 
 # NMEA GPS Tracklog Filepath "tracklog.gps"
 $gps_tracklog_filepath "/opt/missioncontrol/gps_logs/tracklog.gps"

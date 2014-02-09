@@ -23,9 +23,9 @@ sudo chmod 777 /opt/missioncontrol/make_kmz.sh
 sudo chmod 777 /opt/missioncontrol/missioncontrol
 
 # Make the text documents easy to open
-sudo chmod -x /opt/missioncontrol/readme.html
-sudo chmod -x /opt/missioncontrol/readme.md
-sudo chmod -x /opt/missioncontrol/gps_prefs.usf
+sudo chmod 666 /opt/missioncontrol/readme.html
+sudo chmod 666 /opt/missioncontrol/readme.md
+sudo chmod 666 /opt/missioncontrol/gps_prefs.usf
 
 # Copy the MissionControl.desktop item to the LXDE Internet Menu
 sudo cp /opt/missioncontrol/MissionControl.desktop /usr/share/applications/

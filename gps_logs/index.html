@@ -15,32 +15,48 @@
     }
 
     function initCallback(pluginInstance) {
-    ge = pluginInstance;
-    ge.getWindow().setVisibility(true);
+      ge = pluginInstance;
+      ge.getWindow().setVisibility(true);
 
+      //disable terrain layer
+      ge.getLayerRoot().enableLayerById(ge.LAYER_TERRAIN, false);
 
-    //disable terrain layer
-    ge.getLayerRoot().enableLayerById(ge.LAYER_TERRAIN, false);
+      //show the roads and borders layers
+      ge.getLayerRoot().enableLayerById(ge.LAYER_BORDERS, true);
+      ge.getLayerRoot().enableLayerById(ge.LAYER_ROADS, true);
 
-    //show the roads and borders layers
-    ge.getLayerRoot().enableLayerById(ge.LAYER_BORDERS, true);
-    ge.getLayerRoot().enableLayerById(ge.LAYER_ROADS, true);
+      //show navigation controls
+      ge.getNavigationControl().setVisibility(ge.VISIBILITY_SHOW);
 
-    //show navigation controls
-    ge.getNavigationControl().setVisibility(ge.VISIBILITY_SHOW);
+      var link = ge.createLink('');
+      //link.setHref('http://192.168.1.137/live.kml');
+      link.setHref('http://192.168.1.137/mission_control.kmz');
+      // Refresh KML file very 10 seconds
+      link.setRefreshMode(ge.REFRESH_ON_INTERVAL);
+      link.setRefreshInterval(10);
 
+      var networkLink = ge.createNetworkLink('');
+      networkLink.setLink(link);
+      networkLink.setFlyToView(true);
 
-    var link = ge.createLink('');
-    link.setHref('http://192.168.1.137/live.kml');
-    //link.setHref('http://192.168.1.137/mission_control.kmz');
+      ge.getFeatures().appendChild(networkLink);
 
-    var networkLink = ge.createNetworkLink('');
-    networkLink.setLink(link);
-    //networkLink.setFlyToView(true);
+      // Fly to the most recent placemark
+      var placemark = ge.getElementById('You Are Here');
+      if (placemark.getAbstractView()) {
+         ge.getView().setAbstractView(placemark.getAbstractView());
+      }
 
-    ge.getFeatures().appendChild(networkLink);
+      // Create a new LookAt
+      //var lookAt = ge.createLookAt('');
 
-    //setTimeout('setPlaybackSpeed()', 3000)
+      // Set the position values
+      //lookAt.setLatitude(45.1);
+      //lookAt.setLongitude(-63.3);
+      //lookAt.setRange(451000); //default is 0.0
+
+      // Update the view in Google Earth
+      //ge.getView().setAbstractView(lookAt);
 
     }
 
@@ -49,25 +65,6 @@
 
 
     function setPlaybackSpeed() {
-
-    // Create a new LookAt
-    var lookAt = ge.createLookAt('');
-
-    // Set the position values
-    //lookAt.setLatitude(45.1);
-    //lookAt.setLongitude(-63.3);
-    //lookAt.setRange(451000); //default is 0.0
-
-    // Update the view in Google Earth
-    //ge.getView().setAbstractView(lookAt);
-
-    //Set timeslider playback rate to slower playback
-    //speedy_rate = 1; //1 'virtual' second for each 'real' second 
-    //speedy_rate = 60*60;  //1 virtual hours for each real second
-
-    //ge.getTime().setRate(speedy_rate); 
-    //ge.getTime().setRate(0); //stop the virtual clock
-
     }
   </script>
 

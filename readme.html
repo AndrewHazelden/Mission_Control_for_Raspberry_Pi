@@ -277,19 +277,24 @@ img {
 <p>Version 1.4.1 - Released 2014-02-08<br />
 Created by Andrew Hazelden <br />
 email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x65;&#x77;&#x40;&#97;&#x6e;d&#114;&#x65;&#x77;&#104;&#x61;&#122;&#101;&#x6c;&#x64;&#x65;&#110;&#x2e;&#99;&#x6f;&#109;">&#x61;&#110;&#x64;&#114;&#101;w&#64;a&#110;&#100;&#114;&#101;&#119;&#x68;&#x61;zel&#100;&#x65;&#x6e;&#46;&#99;&#111;&#109;</a>  blog: <a href="http://andrewhazelden.com">http://andrewhazelden.com</a></p>
-<p><img src="screenshots/dashboard.png" alt="The Mission Control Dashbpoard Updates in Real-time" /></p>
+<p><img src="screenshots/dashboard.png" alt="The Mission Control Dashboard Updates in Real-time" /></p>
 <p>Mission Control is a ground station program that allows you to plot the GPS based latitude, longitude, and altitude of your Raspberry Pi. The program has a graphical dashboard, and supports sharing the GPS position data via the internet using a Google Earth KMZ file. </p>
 <p>The live data for Mission Control is provided by a <a href="http://www.mikroe.com/click/gps/" title="GPS Click">MikroElektronika GPS Click board</a> that is connected to the <a href="http://www.raspberrypi.org/faqs" title="Raspberry Pi">Raspberry Pi</a> via a USB connection on <strong>/dev/ttyACM0</strong>.</p>
 <h2>Screenshots</h2>
-<p><img src="screenshots/mission_control_raspbian.png" alt="The Live Dashboard View" />  </p>
+<p><img src="screenshots/mission_control_raspbian.png" alt="The Live Dashboard View" />  
+</p>
 <p>You can track your position in real-time using Mission Control's SDL based dashboard display.</p>
-<p><img src="screenshots/firefox.png" alt="Firefox Google Earth WebView" />  </p>
+<p><img src="screenshots/firefox.png" alt="Firefox Google Earth WebView" />  
+</p>
 <p>If you have the Google Earth WebView plugin installed you can track the Raspberry Pi in a remote web browser.</p>
-<p><img src="screenshots/google-earth.png" alt="Google Earth Tracking" />  </p>
+<p><img src="screenshots/google-earth.png" alt="Google Earth Tracking" />  
+</p>
 <p>Mission Control also provides a KMZ export file that can be used in Google Earth. The KMZ file has a snapshot of the graphics dashboard and a waypoint log of the GPS Click's trail. The KMZ export is updated every 10 seconds.</p>
 <h2>Installation</h2>
-<p><img src="screenshots/program_folder.png" alt="Mission Control Folder" />  </p>
-<p>Once you unpack the Mission Control archive  you can install the software by running:  </p>
+<p><img src="screenshots/program_folder.png" alt="Mission Control Folder" />  
+</p>
+<p>Once you unpack the Mission Control archive  you can install the software by running:  
+</p>
 <pre><code>sudo sh ./install.sh  
 </code></pre>
 
@@ -298,7 +303,8 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 <pre><code>/var/www/  
 </code></pre>
 
-<p>For this demo the raspberry pi should have the IP address set to <strong>192.168.1.137</strong> If you want to use a different IP address you need to update address stored in the HTML file:  </p>
+<p>For this demo the raspberry pi should have the IP address set to <strong>192.168.1.137</strong> If you want to use a different IP address you need to update address stored in the HTML file:  
+</p>
 <pre><code>/var/www/index.html  
 </code></pre>
 
@@ -308,7 +314,8 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 
 <p>A MissionControl.desktop shortcut is placed in the /home/pi/Desktop folder. The desktop item makes it easy to run Mission Control. </p>
 <p>The Mission Control program will launch and connect to the GPS Click via the /dev/ttyACM0 serial port connection at 115200.</p>
-<p>The preferences for the Mission Control program are stored in a plain text preference file:  </p>
+<p>The preferences for the Mission Control program are stored in a plain text preference file:  
+</p>
 <pre><code>/opt/missioncontrol/gps_prefs.usf  
 </code></pre>
 
@@ -316,17 +323,21 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 <h1>Starting Mission Control</h1>
 <p><strong>Step 1.</strong> Connect your <a href="http://www.mikroe.com/click/gps/" title="GPS Click">MikroElektronika GPS Click board</a> to the Raspberry Pi USB port.</p>
 <p><strong>Step 2.</strong> Double click on the &quot;Mission Control&quot; icon on your PI's desktop to start the program.</p>
-<p><img src="screenshots/desktop_link.png" alt="Double Click to start Mission Control" />  </p>
+<p><img src="screenshots/desktop_link.png" alt="Double Click to start Mission Control" />  
+</p>
 <p>If you are using the Raspbian LXDE window manager, you can also start Mission Control with the <strong>Internet &gt; Mission Control</strong> menu item. You can start Mission Control with the debugging info visible by running the <strong>Internet Menu &gt; Mission Control Terminal</strong> menu item.</p>
-<p><img src="screenshots/menu-items.png" alt="You can start Mission Control using the LXDE Menus" />  </p>
+<p><img src="screenshots/menu-items.png" alt="You can start Mission Control using the LXDE Menus" />  
+</p>
 <p>The raw NMEA GPS log file can be viewed with the <strong>Internet Menu &gt; GPS Tracklog</strong> menu item. This command opens the /opt/missioncontrol/gps_log/tracklog.gps file in the nano text editor.</p>
-<p>Mission Control can be started from the command line by typing the following command in the LXterminal:   </p>
+<p>Mission Control can be started from the command line by typing the following command in the LXterminal:   
+</p>
 <pre><code>/opt/missioncontrol/missioncontrol  
 </code></pre>
 
 <p><strong>Step 3.</strong> At this point the Raspberry Pi system should show the live Mission Control gauges. </p>
 <p>You can now start your web browser on your desktop / laptop / mobile system and track the Raspberry PI using the Mission Control web interface. (You need to have Google Earth installed on your desktop to access the Mission Control webgui. )</p>
-<p>Open your desktop system's web browser and access the Raspberry Pi's internet address:    </p>
+<p>Open your desktop system's web browser and access the Raspberry Pi's internet address:    
+</p>
 <pre><code>http://192.168.1.137
 </code></pre>
 
@@ -339,7 +350,8 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 </code></pre>
 
 <p>The link.kmz file is neat because it refreshes Google Earth regularly and downloads the latest Mission Control data.</p>
-<p>A plain text NMEA GPS tracklog is saved on the Raspberry Pi at:  </p>
+<p>A plain text NMEA GPS tracklog is saved on the Raspberry Pi at:  
+</p>
 <pre><code>/opt/missioncontrol/gps_logs/tracklog.gps
 </code></pre>
 

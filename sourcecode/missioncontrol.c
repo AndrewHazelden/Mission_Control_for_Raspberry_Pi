@@ -21,6 +21,7 @@ int main (int argc, const char * argv[]) {
   int baud_rate = 0;
   long int kml_log_limit = 0;
   long int read_lines_count = 0;
+  int kml_save_interval = 0;
       
   startup();  // Clear the struct Data
   start_time = time(NULL);
@@ -48,6 +49,7 @@ int main (int argc, const char * argv[]) {
     usf_read_long("read_lines_count", &read_lines_count);
     usf_read_int("gauge_aa_mode", &rotozoom_aa_quality_mode );
     usf_read_int("max_fps", &fps );
+    usf_read_int("kml_save_interval", &kml_save_interval );
     
     //Print the current settings
     printf("\n\nThe %s serial port will be used to open a %d speed serial GPS connection.\n\n", port_name, baud_rate);
@@ -68,7 +70,7 @@ int main (int argc, const char * argv[]) {
 
 	// Open the serial port
 	fd = open_port(port_name, baud_rate); 
-	printf("[fd]:%d\n",fd);
+
 	//Quit if the serial port could not be opened
 	if(fd == -1){
 	  printf("The serial port could not be opened.\n\n");
@@ -101,7 +103,7 @@ int main (int argc, const char * argv[]) {
     render_screen();
     
     // Write the Google Earth KML tracklog file every 10 seconds
-    if( (frame_counter % (fps * 10)) == 1){   
+    if( (frame_counter % (fps * kml_save_interval)) == 1){
       kml_update();
 
       // Write the Google Earth KML dashboard snapshot BMP image every 10 seconds
@@ -161,6 +163,9 @@ int open_port(char* port_name, int baud_rate){
 		//Set the baud rate for the port
 		set_baud_rate(fd, baud_rate);
 	}
+
+  //Serial port device id
+  //printf("[fd]:%d\n",fd);
 	return (fd);
 }
 
@@ -321,17 +326,12 @@ void init_gfx(void){
   //static int flags=0;
   flags=0;
 
-  /* Define the program icon */
+  // Define the program icon
   #ifdef _WIN32
     program_icon = SDL_LoadBMP("/opt/missioncontrol/resources/mc-icon-32px.bmp");
-    //key the blue background from the sprite
-    //SDL_SetColorKey( program_icon, SDL_SRCCOLORKEY, SDL_MapRGB(program_icon->format, 4, 98, 171) );
   #else
     program_icon = SDL_LoadBMP("/opt/missioncontrol/resources/mc-icon-64px.bmp");
-    //key the blue background from the sprite
-    //SDL_SetColorKey( program_icon, SDL_SRCCOLORKEY, SDL_MapRGB(program_icon->format, 4, 98, 171) );
   #endif
-
 
   char *msg;
   
@@ -406,21 +406,18 @@ void init_gfx(void){
     printf("\n");
   }
   
-  
+  /*
   // Wait a moment for the screen to switch
   if(enable_fullscreen)
   {
     SDL_Flip(screen);
     SDL_Delay(1500);
   }
-  
-  /*-------------------------------
-  * Fill the screen
-  * -------------------------------
   */
+
+  // Fill the screen
   
   //Set the ocean background color
-  //bgColor = SDL_MapRGB(screen->format, 4, 98, 171); //Blue Color
   bgColor = SDL_MapRGB(screen->format, 0, 0, 0); //Black Color
   SDL_FillRect(screen, NULL, bgColor);
   
@@ -443,11 +440,11 @@ void SwitchFullscreen(void){
     
     if(screen == NULL) 
     {
-      screen = SDL_SetVideoMode(0, 0, 0, flags); /* If toggle FullScreen failed, then switch back */
+      screen = SDL_SetVideoMode(0, 0, 0, flags); // If toggle FullScreen failed, then switch back
     }
     if(screen == NULL)
     {
-      exit(1); /* If you can't switch back for some reason, then fail */
+      exit(1); // If you can't switch back for some reason, then fail
     }
   }
 }
@@ -702,7 +699,6 @@ void render_screen(void){
   // Redraw the images
   render_navputer();
   
-  
   // Variometer Gauge
   SDL_BlitSurface(variometer_dial_png, NULL, screen, &variometer_rect);
   
@@ -727,9 +723,8 @@ void render_screen(void){
   //heading_degrees += (frame_counter % 10);
   //heading_degrees = (int)heading_degrees % 360;
   
-  
   // Rotate the heading dial sprite
-  heading_dial_png_rotated = rotozoomSurface(heading_dial_png, ceil(heading_degrees), 1, rotozoom_aa_quality_mode); 
+  heading_dial_png_rotated = rotozoomSurface(heading_dial_png, ceil((-1)*heading_degrees), 1, rotozoom_aa_quality_mode); 
   
   heading_dial_rotated_rect.x = ceil(heading_rect.x + (heading_dial_png->w - heading_dial_png_rotated->w)/2.0);
   heading_dial_rotated_rect.y = ceil(heading_rect.y + (heading_dial_png->h - heading_dial_png_rotated->h)/2.0)-1;
@@ -761,8 +756,6 @@ void render_screen(void){
   //Static Dial Mode
   //SDL_BlitSurface(airspeed_needle_png, NULL, screen, &airspeed_rect);
   
-  
-    
   SDL_BlitSurface(attitude_horizon_png, NULL, screen, &attitude_rect);  
   SDL_BlitSurface(attitude_dial_png, NULL, screen, &attitude_rect);
   SDL_BlitSurface(attitude_crosshair_png, NULL, screen, &attitude_rect);
@@ -806,7 +799,6 @@ void render_navputer(void){
   char GPSStatus[20] = " ";
   char GPSMode[50] = " ";
   char GPSCombined[255];
-  
   
   char number_of_satellites_string[50]= "0";
   char bearing_string[100] = "0.0";
@@ -864,7 +856,6 @@ void render_navputer(void){
   // Debug heading
   //heading_degrees = 180;
   
-  
   // Airspeed Gauge km to degrees rotation
 	if(strlen(gprmc.speed_over_ground)){
 		//convert knots to km / hr
@@ -907,7 +898,6 @@ void render_navputer(void){
   strcat(heading_combined, waypoint_string);
   //strcat(heading_combined, "°");
 
-
   // LatLong Display
   sprintf(lat_string,"%3.4lf", gpgga.latitude_degrees);
   sprintf(long_string,"%3.4lf", gpgga.longitude_degrees);
@@ -920,7 +910,6 @@ void render_navputer(void){
   strcat(latlong_combined, long_string);
   strcat(latlong_combined, gpgga.easting);
                            
-                          
   // Speed and Altitude Display  
 
   altitude_in_meters =  gpgga.altitude_double;
@@ -1185,7 +1174,6 @@ void parseGPS(char *input_string){
 			//there should be 12 commas in a valid gprmc string
 			if (totalCommas == 14) {
 				
-				
 				gpgga.calculated_checksum = 0;
 				gpgga.converted_checksum = 0;
 				
@@ -1234,7 +1222,6 @@ void parseGPS(char *input_string){
 				//convert gpgga.checksum string to integer for comparison
 				sscanf(gpgga.checksum, "%X", &gpgga.converted_checksum);
 				printf("GPS checksum to int:%d\n", gpgga.converted_checksum);
-				
 				
 				if(gpgga.calculated_checksum == gpgga.converted_checksum){
 					printf("GPGGA Checksum match!\n\n");
@@ -1312,8 +1299,7 @@ void parseGPS(char *input_string){
 							gpgga.northing[length] = 0;
 							
 							printf("Northing: %s\n",gpgga.northing);
-							
-							
+										
 						}	else {
 							printf("Northing length is less than 1\n");
 						}
@@ -1514,6 +1500,7 @@ void parseGPS(char *input_string){
 					// fix_quality
 					//
 					//---------------------
+
 					start = comma_positions[5]+1;
 					length = (comma_positions[6]-comma_positions[5])-1;
 					
@@ -1536,6 +1523,7 @@ void parseGPS(char *input_string){
 					// Number of Satellites  
 					//
 					//---------------------
+
 					start = comma_positions[6]+1;
 					length = (comma_positions[7]-comma_positions[6])-1;
 					if (length>=1){
@@ -1558,6 +1546,7 @@ void parseGPS(char *input_string){
 					// Horizontal Dilution of Precision (HDOP)
 					//
 					//---------------------
+
 					start = comma_positions[7]+1;
 					length = (comma_positions[8]-comma_positions[7])-1;
 					if (length>=1){
@@ -1616,30 +1605,25 @@ void parseGPS(char *input_string){
 						printf("Altitude length is less than 1\n");
 					}
 					
-					
 					//gpgga.height_of_geoid[0] = 0;
 					//gpgga.height_of_geoid_units[0] = 0; //M
 					//gpgga.last_dgps_update_time[0] = 0;
 					//gpgga.dgps_id[0] = 0;
-					
-				} //end checsum match
-				else{
+				  //end checksum match	
+				} else {
 					printf("\n\nGPGGA Checksum does not match!\n\n");
 				}
-				
-			}//end total commas check
-			else{
+			//end total commas check	
+			} else {
 				printf("Wrong numbers of commas for $GPGGA string: %d\n", totalCommas);
 			}    
 		}// end of GPGGA match if
-		
 		
 		//---------------------
 		//
 		//Check for GPRMC Data
 		//
 		//---------------------
-		
 		
 		if(strstr(input_string, "$GPRMC") != NULL){
 			printf("$GPRMC string match\n");
@@ -1652,6 +1636,7 @@ void parseGPS(char *input_string){
 				// checksum
 				//
 				//---------------------
+
 				gprmc.calculated_checksum = 0;
 				gprmc.converted_checksum = 0;
 				
@@ -1681,7 +1666,6 @@ void parseGPS(char *input_string){
 					}
 					printf("Calculated checksum:%d hex:%X\n",gprmc.calculated_checksum,gprmc.calculated_checksum);
 					
-					
 					//convert gpgga.checksum string to integer for comparison
 					sscanf(gprmc.checksum, "%X", &gprmc.converted_checksum);
 					printf("GPS checksum to int:%d\n", gprmc.converted_checksum);
@@ -1690,7 +1674,6 @@ void parseGPS(char *input_string){
 					if(gprmc.calculated_checksum == gprmc.converted_checksum){
 						printf("GPRMC Checksum match!\n\n");
 						
-
 						//---------------------
 						//
 						// status
@@ -1749,6 +1732,7 @@ void parseGPS(char *input_string){
 						// track angle
 						//
 						//---------------------
+
 						start = comma_positions[7]+1;
 						length = (comma_positions[8]-comma_positions[7])-1;
 						if (length>=1){
@@ -1771,6 +1755,7 @@ void parseGPS(char *input_string){
 						// date
 						//
 						//---------------------
+
 						start = comma_positions[8]+1;
 						length = (comma_positions[9]-comma_positions[8])-1;
 						
@@ -1794,6 +1779,7 @@ void parseGPS(char *input_string){
 						// mode
 						//
 						//---------------------
+
 						start = comma_positions[11]+1;
 						length = ((comma_positions[11]+2)-comma_positions[11])-1;
 						
@@ -1840,7 +1826,6 @@ void parseGPS(char *input_string){
 					printf("Checksum Length is less than 1\n");
 				}
 				
-				
 			//end total commas check	
 			} else {
 				printf("Wrong numbers of commas for $GPRMC string: %d\n", totalCommas);
@@ -1870,7 +1855,6 @@ void kml_update(void){
 	sprintf(tempconversionstring, "%2.d",(new_time - program_begin_time) % 60);
 	strcat(uptime_string, tempconversionstring);
 	
-	
 	//start kml writing 5 seconds after program starts
 	if(((new_time - program_begin_time) % 60) > 5)
 	{
@@ -1879,13 +1863,10 @@ void kml_update(void){
 		
 		if (error_status == -1){
 			printf("KML Writing error.\n");
-		}
-		else
-		{
+		} else {
 			printf("Wrote KML sucessfully.\n");
 		}
 	} //end uptime check
-	
 } //end kmlTimerFired
 
 
@@ -1898,17 +1879,14 @@ void kml_save_bmp_snapshot(void){
    
   printf("Saving a snapshot to: %s\n", bmp_snapshot_filepath);
   
-  //Create a KMZ file from the BMP and KML file
+  //Create a zipped KMZ file from the BMP and KML file
   printf("Packaging KMZ resource.\n");
-  
   system("sh /opt/missioncontrol/make_kmz.sh");
-  
 }
 
 
 int generate_kml(void){
 
-	
 	//---------------------
 	//
 	// Google KML Writing
@@ -1928,14 +1906,12 @@ int generate_kml(void){
 		longitude_degrees[current_waypoint] = gpgga.longitude_degrees;
 		altitude_double[current_waypoint] = gpgga.altitude_double;
 		
-		
 		// Don't increment the waypoint if there is not a valid fix
 		if(gprmc.mode[0] != 'N'){
 			current_waypoint++;
 		}
 	}
 	
-
   // Open the kml log file for writing
 	kml_fp = fopen(KMLLOG, "w");
 	//kml_fp = fopen(kml_tracklog_filepath, "w");
@@ -1953,7 +1929,22 @@ int generate_kml(void){
 	fprintf(kml_fp,"\t\t<name>Mission Control - Track Log</name>\n");
 	fprintf(kml_fp,"\t\t<open>1</open>\n");
 	fprintf(kml_fp,"\t\t<description>Mission Control reports your GPS position in real time.</description>\n");
-	
+
+  /*
+	//Make sure there is a valid fix
+	if(gprmc.mode[0] != 'N'){
+	  fprintf(kml_fp,"\t\t<LookAt>\n");
+	  fprintf(kml_fp,"\t\t\t<longitude>%lf</longitude>\n", longitude_degrees[0]);
+    fprintf(kml_fp,"\t\t\t<latitude>%lf</latitude>\n", latitude_degrees[0]);
+    fprintf(kml_fp,"\t\t\t<altitude>0</altitude>\n");
+    fprintf(kml_fp,"\t\t\t<heading>0.0</heading>\n");
+    fprintf(kml_fp,"\t\t\t<tilt>45.0</tilt>\n");
+    fprintf(kml_fp,"\t\t\t<range>2500</range>\n");
+    fprintf(kml_fp,"\t\t\t<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\n");
+    fprintf(kml_fp,"\t\t</LookAt>\n");
+  }
+  */
+
 	fprintf(kml_fp,"\t\t<Style id=\"currentPlacemark\">\n");
 	fprintf(kml_fp,"\t\t\t<IconStyle>\n");
 	fprintf(kml_fp,"\t\t\t\t<Icon>\n");
@@ -1967,7 +1958,7 @@ int generate_kml(void){
 	fprintf(kml_fp,"\t\t\t\t<Icon>\n");
 	//fprintf(kml_fp,"\t\t\t\t\t<href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href>\n"); 
 	fprintf(kml_fp,"\t\t\t\t\t<href>http://maps.google.com/mapfiles/kml/paddle/purple-stars.png</href>\n"); //blue marker with star
-    fprintf(kml_fp,"\t\t\t\t</Icon>\n");
+  fprintf(kml_fp,"\t\t\t\t</Icon>\n");
 	fprintf(kml_fp,"\t\t\t</IconStyle>\n");
 	fprintf(kml_fp,"\t\t</Style>\n");
 	
@@ -1985,9 +1976,8 @@ int generate_kml(void){
 	fprintf(kml_fp,"\t\t\t<name>Tracklog Data</name>\n");
 	fprintf(kml_fp,"\t\t\t<description>This folder contains the tracklog data.</description>\n");
 	
-	//not valid fix
+	//Make sure there is a valid fix
 	if(gprmc.mode[0] != 'N'){
-		
 		fprintf(kml_fp,"\t\t<Placemark>\n");
 		fprintf(kml_fp,"\t\t<styleUrl>#startPlacemark</styleUrl>\n");	
 		fprintf(kml_fp,"\t\t\t<name>%s</name>\n", "Start");
@@ -2005,20 +1995,21 @@ int generate_kml(void){
 		fprintf(kml_fp,"\t\t\t<name>%s</name>\n", "You Are Here");
 		fprintf(kml_fp,"\t\t\t<description>%s</description>\n", "This is the current GPS position.");
 		
-		/*
-		 fprintf(kml_fp,"\t\t\t<LookAt>\n");
-		 fprintf(kml_fp,"\t\t\t\t<longitude>%lf</longitude>\n", longitude_degrees[current_waypoint-1]);
-		 fprintf(kml_fp,"\t\t\t\t<latitude>%lf</latitude>\n",latitude_degrees[current_waypoint-1]);
-		 fprintf(kml_fp,"\t\t\t\t<altitude>%lf</altitude>\n", altitude_double[current_waypoint-1]);
-		 fprintf(kml_fp,"\t\t\t\t<range>%lf</range>\n",  altitude_double[current_waypoint-1]*1.41);
-		 fprintf(kml_fp,"\t\t\t\t<tilt>45</tilt>\n");
-		 fprintf(kml_fp,"\t\t\t\t<heading>%s</heading>\n", gprmc.track_angle);
-		 fprintf(kml_fp,"\t\t\t\t<altitudeMode>relativeToGround</altitudeMode>\n");
-		 fprintf(kml_fp,"\t\t\t</LookAt>\n");
-		 */
-		
+    // Look the the most recent waypoint
+    fprintf(kml_fp,"\t\t\t<LookAt>\n");
+    fprintf(kml_fp,"\t\t\t\t<longitude>%lf</longitude>\n", longitude_degrees[current_waypoint-1]);
+    fprintf(kml_fp,"\t\t\t\t<latitude>%lf</latitude>\n",latitude_degrees[current_waypoint-1]);
+    fprintf(kml_fp,"\t\t\t\t<altitude>%lf</altitude>\n", altitude_double[current_waypoint-1]);
+    //fprintf(kml_fp,"\t\t\t\t<range>%lf</range>\n",  altitude_double[current_waypoint-1]*1.41);
+    fprintf(kml_fp,"\t\t\t\t<range>2500</range>\n");
+    fprintf(kml_fp,"\t\t\t\t<tilt>45</tilt>\n");
+    //fprintf(kml_fp,"\t\t\t\t<heading>%s</heading>\n", gprmc.track_angle);
+    fprintf(kml_fp,"\t\t\t<heading>0.0</heading>\n");    
+    fprintf(kml_fp,"\t\t\t\t<altitudeMode>relativeToGround</altitudeMode>\n");
+    fprintf(kml_fp,"\t\t\t</LookAt>\n");
+
 		fprintf(kml_fp,"\t\t\t<Point>\n");
-        fprintf(kml_fp,"\t\t\t<altitudeMode>absolute</altitudeMode>\n");
+    fprintf(kml_fp,"\t\t\t<altitudeMode>absolute</altitudeMode>\n");
 		fprintf(kml_fp,"\t\t\t\t<coordinates>");
 		fprintf(kml_fp, "%lf,%lf,%lf\n", gpgga.longitude_degrees, gpgga.latitude_degrees, gpgga.altitude_double);
 		fprintf(kml_fp,"</coordinates>\n");	
@@ -2026,33 +2017,35 @@ int generate_kml(void){
 		fprintf(kml_fp,"\t\t</Placemark>\n");
 		
 		/*
-		 waypoint_folder_count = (current_waypoint/step_interval)-1;
-		 if (waypoint_folder_count < 0){
-		 waypoint_folder_count = 0;
-		 }
-		 
-		 fprintf(kml_fp,"\t\t<Folder>\n");
-		 fprintf(kml_fp,"\t\t\t<name>%s</name>\n", "Waypoint Knots");
-		 fprintf(kml_fp,"\t\t\t<description>This folder contains the %d waypoints.</description>\n", waypoint_folder_count);
-		 
-		 //write 10 second waypoint knots.
-		 for(points=step_interval; points < (current_waypoint-step_interval); points+= step_interval){
-		 //sprintf(waypoint_number, "%d",points);
-		 
-		 fprintf(kml_fp,"\t\t<Placemark>\n");
-		 fprintf(kml_fp,"\t\t<styleUrl>#knotPlacemark</styleUrl>\n");
-		 fprintf(kml_fp,"\t\t\t<name>%s</name>\n", waypoint_string[points].waypoint_time_string);
-		 fprintf(kml_fp,"\t\t\t<description>This is waypoint %d, and gps sample %d.</description>\n", points/step_interval, points);
-		 fprintf(kml_fp,"\t\t\t<Point>\n");
-		 fprintf(kml_fp,"\t\t\t<altitudeMode>absolute</altitudeMode>\n");
-		 fprintf(kml_fp,"\t\t\t\t<coordinates>");
-		 fprintf(kml_fp, "%lf,%lf,%lf\n", longitude_degrees[points], latitude_degrees[points], altitude_double[points]);
-		 fprintf(kml_fp,"</coordinates>\n");
-		 fprintf(kml_fp,"\t\t\t</Point>\n");
-		 fprintf(kml_fp,"\t\t</Placemark>\n");
-		 }
-		 fprintf(kml_fp,"\t\t</Folder>\n");
-		 */
+    //Add waypoint knots to the path
+    waypoint_folder_count = (current_waypoint/step_interval)-1;
+    if (waypoint_folder_count < 0){
+      waypoint_folder_count = 0;
+    }
+
+    fprintf(kml_fp,"\t\t<Folder>\n");
+    fprintf(kml_fp,"\t\t\t<name>%s</name>\n", "Waypoint Knots");
+    fprintf(kml_fp,"\t\t\t<description>This folder contains the %d waypoints.</description>\n", waypoint_folder_count);
+
+    //write 10 second waypoint knots.
+    for(points=step_interval; points < (current_waypoint-step_interval); points+= step_interval){
+      //sprintf(waypoint_number, "%d",points);
+
+      fprintf(kml_fp,"\t\t<Placemark>\n");
+      fprintf(kml_fp,"\t\t<styleUrl>#knotPlacemark</styleUrl>\n");
+      fprintf(kml_fp,"\t\t\t<name>%s</name>\n", waypoint_string[points].waypoint_time_string);
+      fprintf(kml_fp,"\t\t\t<description>This is waypoint %d, and gps sample %d.</description>\n", points/step_interval, points);
+      fprintf(kml_fp,"\t\t\t<Point>\n");
+      fprintf(kml_fp,"\t\t\t<altitudeMode>absolute</altitudeMode>\n");
+      fprintf(kml_fp,"\t\t\t\t<coordinates>");
+      fprintf(kml_fp, "%lf,%lf,%lf\n", longitude_degrees[points], latitude_degrees[points], altitude_double[points]);
+      fprintf(kml_fp,"</coordinates>\n");
+      fprintf(kml_fp,"\t\t\t</Point>\n");
+      fprintf(kml_fp,"\t\t</Placemark>\n");
+    }
+    fprintf(kml_fp,"\t\t</Folder>\n");
+    */
+
 		fprintf(kml_fp,"\t\t<StyleMap id=\"msn_ylw-pushpin\">\n");
 		fprintf(kml_fp,"\t\t\t<Pair>\n");
 		fprintf(kml_fp,"\t\t\t<key>normal</key>\n");
@@ -2083,41 +2076,34 @@ int generate_kml(void){
 		fprintf(kml_fp,"\t\t\t\t<coordinates>\n");
 		
 		for(points=0; points < current_waypoint; points++){
-			
 			//printf("[%d]Lat%10.10lf\tLong%10.10lf\n",points,latitude,longitude);
 			fprintf(kml_fp,"\t\t\t\t%lf,%lf,%lf\n", longitude_degrees[points], latitude_degrees[points], altitude_double[points]);
 		}
 		
 		fprintf(kml_fp,"\t\t\t\t</coordinates>\n");	
 		
-		
 		fprintf(kml_fp,"\t\t\t</LineString>\n");
 		fprintf(kml_fp,"\t\t</Placemark>\n");
 		
-		
-		 //print dashboard snapshot
-		 //if(uptime > 1){
-		 fprintf(kml_fp,"\t\t<ScreenOverlay>\n");
-		 fprintf(kml_fp,"\t\t\t<name>Mission Control Dashboard</name>\n");
-		 fprintf(kml_fp,"\t\t\t<visibility>1</visibility>\n");
-		 fprintf(kml_fp,"\t\t\t<Icon>\n");
-		 fprintf(kml_fp,"\t\t\t  <href>dashboard.bmp</href>\n");
-		 fprintf(kml_fp,"\t\t\t</Icon>\n");
-         
-		 fprintf(kml_fp,"\t\t\t<overlayXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n");
-		 fprintf(kml_fp,"\t\t\t<screenXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n");
-		 fprintf(kml_fp,"\t\t\t<rotationXY x=\"0\" y=\"0\" xunits=\"pixels\" yunits=\"pixels\"/>\n");
-		 fprintf(kml_fp,"\t\t\t<size x=\"896\" y=\"128\" xunits=\"pixels\" yunits=\"pixels\"/>\n");
-		 fprintf(kml_fp,"\t\t</ScreenOverlay>\n");
-		 
-		 //}
-     
-        
+    //print dashboard snapshot
+    //if(uptime > 1){
+    fprintf(kml_fp,"\t\t<ScreenOverlay>\n");
+    fprintf(kml_fp,"\t\t\t<name>Mission Control Dashboard</name>\n");
+    fprintf(kml_fp,"\t\t\t<visibility>1</visibility>\n");
+    fprintf(kml_fp,"\t\t\t<Icon>\n");
+    fprintf(kml_fp,"\t\t\t  <href>dashboard.bmp</href>\n");
+    fprintf(kml_fp,"\t\t\t</Icon>\n");
+       
+    fprintf(kml_fp,"\t\t\t<overlayXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n");
+    fprintf(kml_fp,"\t\t\t<screenXY x=\"0\" y=\"1\" xunits=\"fraction\" yunits=\"fraction\"/>\n");
+    fprintf(kml_fp,"\t\t\t<rotationXY x=\"0\" y=\"0\" xunits=\"pixels\" yunits=\"pixels\"/>\n");
+    fprintf(kml_fp,"\t\t\t<size x=\"896\" y=\"128\" xunits=\"pixels\" yunits=\"pixels\"/>\n");
+    fprintf(kml_fp,"\t\t</ScreenOverlay>\n");
+    //}
+    
 	} //end not valid fix check
 	
-	
 	fprintf(kml_fp,"\t\t</Folder>\n");
-	
 	fprintf(kml_fp,"\t</Document>\n");
 	fprintf(kml_fp,"</kml>\n");
 	
@@ -2126,7 +2112,8 @@ int generate_kml(void){
   //printf("Saved File %s\n", kml_tracklog_filepath);
   printf("Saved File %s\n", KMLLOG);
 
-	
 	return 0;
 }
+
+
 

@@ -4,7 +4,7 @@ Created by Andrew Hazelden
 email: [andrew@andrewhazelden.com](mailto:andrew@andrewhazelden.com)  blog: [http://andrewhazelden.com](http://andrewhazelden.com)
 
 
-![The Mission Control Dashbpoard Updates in Real-time](screenshots/dashboard.png)
+![The Mission Control Dashboard Updates in Real-time](screenshots/dashboard.png)
 
 Mission Control is a ground station program that allows you to plot the GPS based latitude, longitude, and altitude of your Raspberry Pi. The program has a graphical dashboard, and supports sharing the GPS position data via the internet using a Google Earth KMZ file. 
 
