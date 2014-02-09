@@ -13,7 +13,7 @@ $port_name "/dev/ttyACM0"
 # /dev/tty1
 # /dev/ttyAMA0
 # 
-# Using ttyAMA0 requries the serial console to be disconnected. 
+# Using ttyAMA0 requires the serial console to be disconnected. 
 # 
 # To do this you need to edit the /boot/cmdline.txt file and remove the elements: console=ttyAMA0,115200 kgdboc=ttyAMA0,115200
 # 
@@ -25,7 +25,7 @@ $port_name "/dev/ttyACM0"
 @baud_rate 115200
 
 # NMEA GPS Lines Read Per Graphics Frame Update 
-# (integer value 2=10 Hz FPS graohics rate,  10=1 Hz FPS graphics rate)
+# (integer value 2=10 Hz FPS graphics rate,  10=1 Hz FPS graphics rate)
 @read_lines_count 2
 
 # Navputer Screen Font
