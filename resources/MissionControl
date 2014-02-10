@@ -1,6 +1,0 @@
-?package(MisssionControl): needs="X11" \
-  section="Applications/Network" \
-  title="Mission Control" \
-  command="x-terminal-emulator -t "Mission Control" -e /opt/missioncontrol/missioncontrol" \
-  icon="/opt/missioncontrol/resources/missioncontrol.png" \
-  description="Mission Control lets you track your Pi using GPS."\

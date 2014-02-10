@@ -1,9 +1,10 @@
-// Mission Control for RPi + GPS Click v1.4 2014-02-08 9am
+// Mission Control for RPi + GPS Click v1.4.2 2014-02-09
 // By Andrew Hazelden 
 //
 // email: andrew@andrewhazelden.com
 // blog: http://www.andrewhazelden.com/
-
+//
+// License: GPL v3
 
 // Serial io headers
 
@@ -40,17 +41,17 @@
 #include <SDL/SDL.h>      /* Adds graphics support */
 #include <SDL/SDL_ttf.h>            /* Adds font support */
 #include <SDL/SDL_rotozoom.h>       /* SDL_gfx Rotozoom  */
-#include <SDL/SDL_gfxPrimitives.h>	/* SDL_gfx Primitives */
-#include <SDL/SDL_framerate.h>	/* SDL_gfx Framerate Manager */
-#include <SDL/SDL_image.h>	/* SDL_image graphics */
+#include <SDL/SDL_gfxPrimitives.h>  /* SDL_gfx Primitives */
+#include <SDL/SDL_framerate.h>  /* SDL_gfx Framerate Manager */
+#include <SDL/SDL_image.h>  /* SDL_image graphics */
 #include "SDL_mixer.h"
 #else
 #include <SDL.h>
 #include <SDL_ttf.h>            /* Adds font support */
 #include <SDL_rotozoom.h>       /* SDL_gfx Rotozoom  */
-#include <SDL_gfxPrimitives.h>	/* SDL_gfx Primitives */
-#include <SDL_framerate.h>	/* SDL_gfx Framerate Manager */
-#include <SDL_image.h>	/* SDL_image graphics */
+#include <SDL_gfxPrimitives.h>  /* SDL_gfx Primitives */
+#include <SDL_framerate.h>  /* SDL_gfx Framerate Manager */
+#include <SDL_image.h>  /* SDL_image graphics */
 #include "SDL_mixer.h" 
 #endif
 
@@ -72,6 +73,7 @@ void close_port(int fd);
 void set_baud_rate(int fd, int baud_rate);
 void get_string(int fd, char *data);
 void init_gfx(void);
+void swap_layout(void);
 void save_previous(void);
 void load_sprites(void);
 void free_sprites(void);
@@ -88,9 +90,12 @@ void get_input(void);
 //Global Variables
 //int fontsize = 12;
 
-//int screen_width = 800;
-int screen_width = DIAL_WIDTH*7;  // (Number of dials visible-1) * 128
-int screen_height = DIAL_WIDTH;   //Display is one dial high * 128
+// Tall mode - 2 wide x 3 tall gauges
+int screen_width = DIAL_WIDTH*2;  // (Number of dials visible-1) * 128
+int screen_height = DIAL_WIDTH*3;   //Display is one dial high * 128
+
+//View Layout0=Vertical Block Layout, 1=Horizontal Layout 5up, 2=Horizontal Layout 6up
+int view_layout;
 
 //int screen_width = 800;
 //int screen_height = 600;
@@ -115,7 +120,7 @@ double altitude_hundreds_degrees;
 double altitude_thousands_degrees;
 
 double altitude_in_feet;
-double airspeed_in_km;	
+double airspeed_in_km;  
 double airspeed_degrees;
 double fuel_percentage;
 double attitude_roll;
@@ -160,30 +165,30 @@ int elapsed_update_interval;
 //
 // gpgga = fix information
 //
-//---------------------	
+//--------------------- 
 
 struct gpgga_data{
-	char fix_time_utc[25];
-	char latitude[25];
-	char northing[2];
-	char longitude[25];
-	char easting[2];
-	char fix_quality[2];
-	char number_of_satellites[3];
-	char hdop[4];
-	char altitude[25];
-	char altitude_units[2];  //M
-	//char height_of_geoid[10];
-	//char height_of_geoid_units[2]; //M
-	//char last_dgps_update_time[10];
-	//char dgps_id[5];
-	double latitude_degrees;
-	double longitude_degrees;
-	double altitude_double;
-	char converted_checksum;
-	char checksum[6]; // always starts with an * (asterisk)
-	char calculated_checksum;
-	
+  char fix_time_utc[25];
+  char latitude[25];
+  char northing[2];
+  char longitude[25];
+  char easting[2];
+  char fix_quality[2];
+  char number_of_satellites[3];
+  char hdop[4];
+  char altitude[25];
+  char altitude_units[2];  //M
+  //char height_of_geoid[10];
+  //char height_of_geoid_units[2]; //M
+  //char last_dgps_update_time[10];
+  //char dgps_id[5];
+  double latitude_degrees;
+  double longitude_degrees;
+  double altitude_double;
+  char converted_checksum;
+  char checksum[6]; // always starts with an * (asterisk)
+  char calculated_checksum;
+  
 
 } gpgga;
 
@@ -192,25 +197,25 @@ struct gpgga_data{
 //
 // gprmc = recomended minimum data
 //
-//---------------------	
+//--------------------- 
 
 
 struct gprmc_data{
-	//char fix_time_utc[25];
-	char status[2]; //status A=active, V=void.
-	//char latitude[25];
-	//char northing[2];
-	//char longitude[25];
-	//char easting[2];
-	char speed_over_ground[25]; //speed in knots
-	char track_angle[25]; //track angle in degrees true
-	char date[10]; //date in 2 digit pairs day month year 120308
-	//char magnetic_variation[25];
-	//char magnetic_variation_directon[2]; // W
-	char mode[2]; //S=simulator, A=autonomous, E=estimated, D=differential, N=not valid
-	char checksum[6]; // always starts with an * (asterisk)
-	char calculated_checksum;
-	char converted_checksum; 
+  //char fix_time_utc[25];
+  char status[2]; //status A=active, V=void.
+  //char latitude[25];
+  //char northing[2];
+  //char longitude[25];
+  //char easting[2];
+  char speed_over_ground[25]; //speed in knots
+  char track_angle[25]; //track angle in degrees true
+  char date[10]; //date in 2 digit pairs day month year 120308
+  //char magnetic_variation[25];
+  //char magnetic_variation_directon[2]; // W
+  char mode[2]; //S=simulator, A=autonomous, E=estimated, D=differential, N=not valid
+  char checksum[6]; // always starts with an * (asterisk)
+  char calculated_checksum;
+  char converted_checksum; 
 } gprmc;
 
 
@@ -252,9 +257,9 @@ int step_interval = 10;
 long int start_time = 0;
 
 typedef struct {
-	int r;
-	int g;
-	int b;
+  int r;
+  int g;
+  int b;
 } rgb_colors;
 
 

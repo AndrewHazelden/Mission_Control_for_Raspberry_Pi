@@ -5,7 +5,7 @@
 #include <ctype.h>
 
 // Universal Settings Format - USF Library
-// 2013-12-29 - V1.0 Build 3
+// 2014-02-09 - V1.1
 // by Andrew Hazelden andrew@andrewhazelden.com
 
 // Data Types supported: int, long, float, double, string

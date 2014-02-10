@@ -1,10 +1,10 @@
 # Mission Control for Raspberry Pi #
-Version 1.4.1 - Released 2014-02-08  
+Version 1.4.2 - Released 2014-02-09  
 Created by Andrew Hazelden   
 email: [andrew@andrewhazelden.com](mailto:andrew@andrewhazelden.com)  blog: [http://andrewhazelden.com](http://andrewhazelden.com)
 
 
-![The Mission Control Dashboard Updates in Real-time](screenshots/dashboard.png)
+![The Mission Control Dashboard Updates in Real-time](screenshots/dashboard-6up.png)
 
 Mission Control is a ground station program that allows you to plot the GPS based latitude, longitude, and altitude of your Raspberry Pi. The program has a graphical dashboard, and supports sharing the GPS position data via the internet using a Google Earth KMZ file. 
 
@@ -56,7 +56,7 @@ The preferences for the Mission Control program are stored in a plain text prefe
 
 You can change the serial port device, and the baud rate in the **gps_prefs.usf** file.
 
-# Starting Mission Control #
+## Starting Mission Control ##
 
 **Step 1.** Connect your [MikroElektronika GPS Click board](http://www.mikroe.com/click/gps/ "GPS Click") to the Raspberry Pi USB port.
 
@@ -100,8 +100,88 @@ A plain text NMEA GPS tracklog is saved on the Raspberry Pi at:
 
 This logfile is overwritten every time the Mission Control program is launched.
 
+## Options ##
 
-# Removing Mission Control #
+### Fullscreen Mode ###
+
+You can switch between windowed and fullscreen mode by tapping the TAB key on your keyboard, or by clicking in the Mission Control window.
+
+### View Layouts ###
+
+The Mission Control preference file (/opt/missioncontrol/gps_prefs.usf) has an option that allows you to choose between three different window layouts:
+
+    # View Layout 0=Vertical Block Layout, 1=Horizontal Layout 5up, 2=Horizontal Layout 6up
+    @view_layout 1
+
+Setting the **@view_layout** value to 0 uses a vertically arranged block layout. This vertical layout fits nicely on the Raspberry Pi screen if you decide to use the composite video connection and lower the screen resolution to 640x480.
+
+![Vertical Block Layout](screenshots/dashboard-blocks.png)
+
+----------
+
+Setting the **@view_layout** to 1 uses a horizontal layout with 5 gauges. This layout fits nicely on a 1024x768 screen
+
+![Horizontal Layout 5 Up](screenshots/dashboard-5up.png)
+
+----------
+
+Setting the **@view_layout** to 2 uses a horizontal layout with 6 gauges.
+
+![Horizontal Layout 6 Up](screenshots/dashboard-6up.png)
+
+----------
+
+### Changing the BAUD Rate ###
+
+The Mission Control preference file (/opt/missioncontrol/gps_prefs.usf) has an option that allows you to select the serial port BAUD rate. A BAUD rate is the serial communication speed in bits-per-second.
+
+    # GPS Baud Rate
+    @baud_rate 115200
+
+The following is a list of valid BAUD rates for Mission Control on Raspbian:
+
+    @baud_rate 300
+    @baud_rate 600
+    @baud_rate 1200
+    @baud_rate 1800
+    @baud_rate 2400
+    @baud_rate 4800
+    @baud_rate 9600
+    @baud_rate 19200
+    @baud_rate 38400
+    @baud_rate 57600
+    @baud_rate 115200
+    @baud_rate 230400
+    @baud_rate 460800 
+    @baud_rate 500000 
+    @baud_rate 576000 
+    @baud_rate 921600
+    @baud_rate 1000000
+    @baud_rate 1152000
+    @baud_rate 2000000
+    @baud_rate 3000000
+    @baud_rate 4000000
+
+
+### Making Mission Control a Startup Item ###
+Here is a tip for Raspbian / LXDE users on making Mission Control a start-up item by copying the program's LXDE desktop shortcut to you user account's autostart folder.
+
+Paste the following commands into the terminal window:
+    # Create an autostart folder
+    mkdir -p ~/.config/autostart
+    
+    # Paste the desktop link in the folder
+    cp /opt/missioncontrol/MissionControl.desktop ~/.config/autostart/
+    
+    # Make it executable
+    chmod 755 ~/.config/autostart/MissionControl.desktop
+
+If you want to remove Mission Control from the start-up items run the following command:
+
+	rm ~/.config/autostart/MissionControl.desktop
+
+
+### Uninstalling Mission Control ###
 
 If you want to remove Mission Control from your system you can run the following shell command:
 

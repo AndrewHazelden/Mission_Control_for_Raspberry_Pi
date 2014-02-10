@@ -1,5 +1,5 @@
 # Universal Settings Format v1.0
-# 2014-02-08 9am
+# 2014-02-10
 $encoding "ASCII"
 
 # Version Caption
@@ -15,11 +15,12 @@ $port_name "/dev/ttyACM0"
 # 
 # Using ttyAMA0 requires the serial console to be disconnected. 
 # 
-# To do this you need to edit the /boot/cmdline.txt file and remove the elements: console=ttyAMA0,115200 kgdboc=ttyAMA0,115200
+# To do this you need to edit the /boot/cmdline.txt file and remove
+# the elements: console=ttyAMA0,115200 kgdboc=ttyAMA0,115200
 # 
-# You also need to edit the /etc/inittab file and comment out the last line by adding a # number sign to the beginning 
+# You also need to edit the /etc/inittab file and comment out the
+# last line by adding a # number sign to the beginning 
 # so it reads: #T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100
-
 
 # GPS Baud Rate
 @baud_rate 115200
@@ -37,11 +38,14 @@ $font_name "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
 # Anti-Aliased Gauge Rotations 1=AA ON, 0=AA OFF
 @gauge_aa_mode 1
 
+# View Layout 0=Vertical Block Layout, 1=Horizontal Layout 5up, 2=Horizontal Layout 6up
+@view_layout 2
+
 # Graphics Frame Rate Limiter (integer value 1=1Hz, 10=10Hz, 30=30 Hz)
 @max_fps 10
 
-# KML and dashboard snapshot save interval in seconds
-@kml_save_interval 10
+# KML and dashboard snapshot save interval in seconds (default = 5)
+@kml_save_interval 5
 
 # NMEA GPS Tracklog Filepath "tracklog.gps"
 $gps_tracklog_filepath "/opt/missioncontrol/gps_logs/tracklog.gps"
