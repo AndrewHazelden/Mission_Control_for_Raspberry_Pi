@@ -281,20 +281,15 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 <p>Mission Control is a ground station program that allows you to plot the GPS based latitude, longitude, and altitude of your Raspberry Pi. The program has a graphical dashboard, and supports sharing the GPS position data via the internet using a Google Earth KMZ file. </p>
 <p>The live data for Mission Control is provided by a <a href="http://www.mikroe.com/click/gps/" title="GPS Click">MikroElektronika GPS Click board</a> that is connected to the <a href="http://www.raspberrypi.org/faqs" title="Raspberry Pi">Raspberry Pi</a> via a USB connection on <strong>/dev/ttyACM0</strong>.</p>
 <h2>Screenshots</h2>
-<p><img src="screenshots/mission_control_raspbian.png" alt="The Live Dashboard View" />  
-</p>
+<p><img src="screenshots/mission_control_raspbian.png" alt="The Live Dashboard View" />  </p>
 <p>You can track your position in real-time using Mission Control's SDL based dashboard display.</p>
-<p><img src="screenshots/firefox.png" alt="Firefox Google Earth WebView" />  
-</p>
+<p><img src="screenshots/firefox.png" alt="Firefox Google Earth WebView" />  </p>
 <p>If you have the Google Earth WebView plugin installed you can track the Raspberry Pi in a remote web browser.</p>
-<p><img src="screenshots/google-earth.png" alt="Google Earth Tracking" />  
-</p>
+<p><img src="screenshots/google-earth.png" alt="Google Earth Tracking" />  </p>
 <p>Mission Control also provides a KMZ export file that can be used in Google Earth. The KMZ file has a snapshot of the graphics dashboard and a waypoint log of the GPS Click's trail. The KMZ export is updated every 10 seconds.</p>
 <h2>Installation</h2>
-<p><img src="screenshots/program_folder.png" alt="Mission Control Folder" />  
-</p>
-<p>Once you unpack the Mission Control archive  you can install the software by running:  
-</p>
+<p><img src="screenshots/program_folder.png" alt="Mission Control Folder" />  </p>
+<p>Once you unpack the Mission Control archive  you can install the software by running:  </p>
 <pre><code>sudo sh ./install.sh  
 </code></pre>
 
@@ -303,8 +298,7 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 <pre><code>/var/www/  
 </code></pre>
 
-<p>For this demo the raspberry pi should have the IP address set to <strong>192.168.1.137</strong> If you want to use a different IP address you need to update address stored in the HTML file:  
-</p>
+<p>For this demo the raspberry pi should have the IP address set to <strong>192.168.1.137</strong> If you want to use a different IP address you need to update the address stored in the HTML file:  </p>
 <pre><code>/var/www/index.html  
 </code></pre>
 
@@ -314,30 +308,25 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 
 <p>A MissionControl.desktop shortcut is placed in the /home/pi/Desktop folder. The desktop item makes it easy to run Mission Control. </p>
 <p>The Mission Control program will launch and connect to the GPS Click via the /dev/ttyACM0 serial port connection at 115200.</p>
-<p>The preferences for the Mission Control program are stored in a plain text preference file:  
-</p>
+<p>The preferences for the Mission Control program are stored in a plain text preference file:  </p>
 <pre><code>/opt/missioncontrol/gps_prefs.usf  
 </code></pre>
 
 <p>You can change the serial port device, and the baud rate in the <strong>gps_prefs.usf</strong> file.</p>
 <h2>Starting Mission Control</h2>
 <p><strong>Step 1.</strong> Connect your <a href="http://www.mikroe.com/click/gps/" title="GPS Click">MikroElektronika GPS Click board</a> to the Raspberry Pi USB port.</p>
-<p><strong>Step 2.</strong> Double click on the &quot;Mission Control&quot; icon on your PI's desktop to start the program.</p>
-<p><img src="screenshots/desktop_link.png" alt="Double Click to start Mission Control" />  
-</p>
+<p><strong>Step 2.</strong> Double click on the &quot;Mission Control&quot; icon on your Pi's desktop to start the program.</p>
+<p><img src="screenshots/desktop_link.png" alt="Double Click to start Mission Control" />  </p>
 <p>If you are using the Raspbian LXDE window manager, you can also start Mission Control with the <strong>Internet &gt; Mission Control</strong> menu item. You can start Mission Control with the debugging info visible by running the <strong>Internet Menu &gt; Mission Control Terminal</strong> menu item.</p>
-<p><img src="screenshots/menu-items.png" alt="You can start Mission Control using the LXDE Menus" />  
-</p>
+<p><img src="screenshots/menu-items.png" alt="You can start Mission Control using the LXDE Menus" />  </p>
 <p>The raw NMEA GPS log file can be viewed with the <strong>Internet Menu &gt; GPS Tracklog</strong> menu item. This command opens the /opt/missioncontrol/gps_log/tracklog.gps file in the nano text editor.</p>
-<p>Mission Control can be started from the command line by typing the following command in the LXterminal:   
-</p>
+<p>Mission Control can be started from the command line by typing the following command in the LXterminal:   </p>
 <pre><code>/opt/missioncontrol/missioncontrol  
 </code></pre>
 
 <p><strong>Step 3.</strong> At this point the Raspberry Pi system should show the live Mission Control gauges. </p>
-<p>You can now start your web browser on your desktop / laptop / mobile system and track the Raspberry PI using the Mission Control web interface. (You need to have Google Earth installed on your desktop to access the Mission Control webgui. )</p>
-<p>Open your desktop system's web browser and access the Raspberry Pi's internet address:    
-</p>
+<p>You can now start your web browser on your desktop / laptop / mobile system and track the Raspberry Pi using the Mission Control web interface. (You need to have Google Earth installed on your desktop to access the Mission Control webgui. )</p>
+<p>Open your desktop system's web browser and access the Raspberry Pi's internet address:    </p>
 <pre><code>http://192.168.1.137
 </code></pre>
 
@@ -350,15 +339,16 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 </code></pre>
 
 <p>The link.kmz file is neat because it refreshes Google Earth regularly and downloads the latest Mission Control data.</p>
-<p>A plain text NMEA GPS tracklog is saved on the Raspberry Pi at:  
-</p>
+<p>A plain text NMEA GPS tracklog is saved on the Raspberry Pi at:  </p>
 <pre><code>/opt/missioncontrol/gps_logs/tracklog.gps
 </code></pre>
 
 <p>This logfile is overwritten every time the Mission Control program is launched.</p>
 <h2>Options</h2>
 <h3>Fullscreen Mode</h3>
-<p>You can switch between windowed and fullscreen mode by tapping the TAB key on your keyboard, or by clicking in the Mission Control window.</p>
+<p>You can switch between windowed and fullscreen modes by tapping the TAB key on your keyboard, or by clicking in the Mission Control window.</p>
+<p><img src="screenshots/fullscreen_gauge.png" alt="Fullscreen Mode" /></p>
+<p>A single click brings Mission Control into fullscreen mode.</p>
 <h3>View Layouts</h3>
 <p>The Mission Control preference file (/opt/missioncontrol/gps_prefs.usf) has an option that allows you to choose between three different window layouts:</p>
 <pre><code># View Layout 0=Vertical Block Layout, 1=Horizontal Layout 5up, 2=Horizontal Layout 6up
@@ -368,7 +358,7 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 <p>Setting the <strong>@view_layout</strong> value to 0 uses a vertically arranged block layout. This vertical layout fits nicely on the Raspberry Pi screen if you decide to use the composite video connection and lower the screen resolution to 640x480.</p>
 <p><img src="screenshots/dashboard-blocks.png" alt="Vertical Block Layout" /></p>
 <hr />
-<p>Setting the <strong>@view_layout</strong> to 1 uses a horizontal layout with 5 gauges. This layout fits nicely on a 1024x768 screen</p>
+<p>Setting the <strong>@view_layout</strong> to 1 uses a horizontal layout with 5 gauges. This layout fits nicely on a 1024x768 screen.</p>
 <p><img src="screenshots/dashboard-5up.png" alt="Horizontal Layout 5 Up" /></p>
 <hr />
 <p>Setting the <strong>@view_layout</strong> to 2 uses a horizontal layout with 6 gauges.</p>
@@ -405,18 +395,19 @@ email: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x61;n&#x64;&#x72;&#x6
 </code></pre>
 
 <h3>Making Mission Control a Startup Item</h3>
-<p>Here is a tip for Raspbian / LXDE users on making Mission Control a start-up item by copying the program's LXDE desktop shortcut to you user account's autostart folder.</p>
-<p>Paste the following commands into the terminal window:
-    # Create an autostart folder
-    mkdir -p ~/.config/autostart</p>
-<pre><code># Paste the desktop link in the folder
+<p>Here is a tip for Raspbian / LXDE users on making Mission Control a startup item by copying the program's LXDE desktop shortcut to you user account's autostart folder.</p>
+<p>Paste the following commands into the terminal window:</p>
+<pre><code># Create an autostart folder
+mkdir -p ~/.config/autostart
+
+# Paste the desktop link in the folder
 cp /opt/missioncontrol/MissionControl.desktop ~/.config/autostart/
 
 # Make it executable
 chmod 755 ~/.config/autostart/MissionControl.desktop
 </code></pre>
 
-<p>If you want to remove Mission Control from the start-up items run the following command:</p>
+<p>If you want to remove Mission Control from the startup items run the following command:</p>
 <pre><code>rm ~/.config/autostart/MissionControl.desktop
 </code></pre>
 

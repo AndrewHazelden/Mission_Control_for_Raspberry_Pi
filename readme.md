@@ -38,7 +38,7 @@ The Apache web sharing folder is located at:
 
     /var/www/  
 
-For this demo the raspberry pi should have the IP address set to **192.168.1.137** If you want to use a different IP address you need to update address stored in the HTML file:  
+For this demo the raspberry pi should have the IP address set to **192.168.1.137** If you want to use a different IP address you need to update the address stored in the HTML file:  
 
     /var/www/index.html  
     
@@ -60,7 +60,7 @@ You can change the serial port device, and the baud rate in the **gps_prefs.usf*
 
 **Step 1.** Connect your [MikroElektronika GPS Click board](http://www.mikroe.com/click/gps/ "GPS Click") to the Raspberry Pi USB port.
 
-**Step 2.** Double click on the "Mission Control" icon on your PI's desktop to start the program.
+**Step 2.** Double click on the "Mission Control" icon on your Pi's desktop to start the program.
 
 ![Double Click to start Mission Control](screenshots/desktop_link.png)  
 
@@ -76,7 +76,7 @@ Mission Control can be started from the command line by typing the following com
 
 **Step 3.** At this point the Raspberry Pi system should show the live Mission Control gauges. 
 
-You can now start your web browser on your desktop / laptop / mobile system and track the Raspberry PI using the Mission Control web interface. (You need to have Google Earth installed on your desktop to access the Mission Control webgui. )
+You can now start your web browser on your desktop / laptop / mobile system and track the Raspberry Pi using the Mission Control web interface. (You need to have Google Earth installed on your desktop to access the Mission Control webgui. )
 
 Open your desktop system's web browser and access the Raspberry Pi's internet address:    
 
@@ -104,7 +104,11 @@ This logfile is overwritten every time the Mission Control program is launched.
 
 ### Fullscreen Mode ###
 
-You can switch between windowed and fullscreen mode by tapping the TAB key on your keyboard, or by clicking in the Mission Control window.
+You can switch between windowed and fullscreen modes by tapping the TAB key on your keyboard, or by clicking in the Mission Control window.
+
+![Fullscreen Mode](screenshots/fullscreen_gauge.png)
+
+A single click brings Mission Control into fullscreen mode.
 
 ### View Layouts ###
 
@@ -119,7 +123,7 @@ Setting the **@view_layout** value to 0 uses a vertically arranged block layout.
 
 ----------
 
-Setting the **@view_layout** to 1 uses a horizontal layout with 5 gauges. This layout fits nicely on a 1024x768 screen
+Setting the **@view_layout** to 1 uses a horizontal layout with 5 gauges. This layout fits nicely on a 1024x768 screen.
 
 ![Horizontal Layout 5 Up](screenshots/dashboard-5up.png)
 
@@ -162,11 +166,11 @@ The following is a list of valid BAUD rates for Mission Control on Raspbian:
     @baud_rate 3000000
     @baud_rate 4000000
 
-
 ### Making Mission Control a Startup Item ###
-Here is a tip for Raspbian / LXDE users on making Mission Control a start-up item by copying the program's LXDE desktop shortcut to you user account's autostart folder.
+Here is a tip for Raspbian / LXDE users on making Mission Control a startup item by copying the program's LXDE desktop shortcut to you user account's autostart folder.
 
 Paste the following commands into the terminal window:
+
     # Create an autostart folder
     mkdir -p ~/.config/autostart
     
@@ -176,10 +180,9 @@ Paste the following commands into the terminal window:
     # Make it executable
     chmod 755 ~/.config/autostart/MissionControl.desktop
 
-If you want to remove Mission Control from the start-up items run the following command:
+If you want to remove Mission Control from the startup items run the following command:
 
 	rm ~/.config/autostart/MissionControl.desktop
-
 
 ### Uninstalling Mission Control ###
 
